@@ -2,7 +2,9 @@ package com.example.user_management_service.Controller;
 
 
 import com.example.user_management_service.DTO.UserLogInDTO;
+import com.example.user_management_service.Enums.RegistrationStatusEnum;
 import com.example.user_management_service.Service.UserLogInService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +30,11 @@ public class UserLogInController {
             return ResponseEntity.badRequest().body("Wrong Credentials");
         }
 
-        if(userLogInService.userLogInCheck(userLogInDTO))
-            return ResponseEntity.accepted().body("Success");
-
-        return ResponseEntity.internalServerError().body("Server Crashed");
+        RegistrationStatusEnum.RegisterStatus status = userLogInService.userLogInCheck(userLogInDTO);
+        return switch (status) {
+            case SUCCESS -> ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
+            case USERNAME_EXISTS -> ResponseEntity.status(HttpStatus.CONFLICT).body("Username already in use.");
+            default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
+        };
     }
 }
