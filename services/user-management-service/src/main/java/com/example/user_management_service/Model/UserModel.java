@@ -104,10 +104,10 @@ public class UserModel {
         this.profilePictureUrl = PPURL;
     }
 
-    public void setCollegeOrUniversityName(String collegeName) {
+    public void setCollegeName(String collegeName) {
         this.collegeName = collegeName;
     }
-    public String getCollegeOrUniversityName() {
+    public String getCollegeName() {
         return this.collegeName;
     }
 
