@@ -12,8 +12,8 @@ import java.util.UUID;
 @Repository
 public interface UserLoginRepository extends JpaRepository<UserModel,UUID> {
 
-    boolean existsUsername(String username);
-    boolean existsPasswordHash(String password);
+    boolean existsByUsername(String username);
+    boolean existsByPassword(String password);
 
 
 }
