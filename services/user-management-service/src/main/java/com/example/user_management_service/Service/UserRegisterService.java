@@ -16,8 +16,9 @@ public class UserRegisterService {
     private UserRegisterRepository userRegisterRepository;
 
     private PasswordEncoder passwordEncoder;
-    public UserRegisterService(UserRegisterRepository userRegisterRepository){
+    public UserRegisterService(UserRegisterRepository userRegisterRepository, PasswordEncoder passwordEncoder){
         this.userRegisterRepository = userRegisterRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public RegistrationStatusEnum.RegisterStatus createNewUser(UserRegisterDTO userRegisterDTO) {
@@ -33,13 +34,13 @@ public class UserRegisterService {
         userModel.setUserName(userRegisterDTO.getUsername());
         userModel.setFirstName(userRegisterDTO.getFirstName());
         userModel.setLastName(userRegisterDTO.getLastName());
+        userModel.setEmail(userRegisterDTO.getEmail());
 
 //       Password Encoding
         String encodedPassword = passwordEncoder.encode(userRegisterDTO.getPassword());
         userModel.setPassword(encodedPassword);
 
         userModel.setCollegeName(userRegisterDTO.getCollegeName());
-        userModel.setCreatedAt(LocalDateTime.now());
         userModel.setDepartment(userRegisterDTO.getDepartment());
         userModel.setCity(userRegisterDTO.getCity());
         userModel.setYear(userRegisterDTO.getYear());
