@@ -9,7 +9,7 @@ import java.util.UUID;
 
 
 @Entity
-@Table(name = "basic-information-table")
+@Table(name = "basic_information_table")
 public class UserModel {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -90,12 +90,11 @@ public class UserModel {
         this.googleId = googleId;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return this.createdAt;
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
     }
-    public void setCreatedAt(LocalDateTime LDT) {
-        this.createdAt = LDT;
-    }
+
 
     public String getProfilePictureUrl() {
         return this.profilePictureUrl;
