@@ -23,8 +23,8 @@ public class UserRegisterController {
         if(userRegisterDTO.getEmail() == null || userRegisterDTO.getCollegeName() == null || userRegisterDTO.getFirstName() == null || userRegisterDTO.getLastName() == null || userRegisterDTO.getPassword() == null || userRegisterDTO.getUsername() == null) {
             return ResponseEntity.badRequest().body("Required fields are empty");
         }
+//        System.out.println("Email = "+userRegisterDTO.getEmail());
         RegistrationStatusEnum.RegisterStatus status = userRegisterService.createNewUser(userRegisterDTO);
-
         return switch (status) {
             case SUCCESS -> ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
             case EMAIL_EXISTS -> ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use.");
