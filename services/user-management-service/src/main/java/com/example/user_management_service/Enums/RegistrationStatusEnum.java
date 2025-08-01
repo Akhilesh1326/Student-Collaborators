@@ -5,6 +5,7 @@ public class RegistrationStatusEnum {
         SUCCESS,
         EMAIL_EXISTS,
         USERNAME_EXISTS,
-        ERROR
+        ERROR,
+        NOT_FOUND
     }
 }
