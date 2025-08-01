@@ -6,6 +6,8 @@ import com.example.user_management_service.Enums.RegistrationStatusEnum;
 import com.example.user_management_service.Service.UserLogInService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,8 +34,8 @@ public class UserLogInController {
 
         RegistrationStatusEnum.RegisterStatus status = userLogInService.userLogInCheck(userLogInDTO);
         return switch (status) {
-            case SUCCESS -> ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
-            case USERNAME_EXISTS -> ResponseEntity.status(HttpStatus.CONFLICT).body("Username already in use.");
+            case SUCCESS -> ResponseEntity.status(HttpStatus.ACCEPTED).body("User Logged In successfully.");
+            case NOT_FOUND -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
         };
     }
